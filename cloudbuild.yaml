@@ -2,7 +2,7 @@ steps:
 # Step 1: Build the Docker Image
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-t', 'us-central1-docker.pkg.dev/plucky-alliance-451211-s9/myapps-repository
-'/my-build:prod1', '.' ]
+/my-build:prod1', '.' ]
 
 # Step 2: Push the image to the Artifact Registry
 - name: 'gcr.io/cloud-builders/docker'
