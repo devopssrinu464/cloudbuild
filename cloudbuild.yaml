@@ -8,7 +8,7 @@ steps:
   args: [ 'push', 'us-central1-docker.pkg.dev/plucky-alliance-451211-s9/myapps-repository/my-build:prod1' ]
 
 
-# Step 3: Deployment to Cloud Run after image is pushed
+# Step 3: Deployment to Cloud Run after image is pushe
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
   - 'run'
