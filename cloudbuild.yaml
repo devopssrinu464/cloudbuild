@@ -16,3 +16,5 @@ steps:
   args:
   - 'push'
   - 'us-central1-docker.pkg.dev/plucky-alliance-451211-s9/myapps-repository/my-build:prod1'
+options:
+  logging: CLOUD_LOGGING_ONLY
