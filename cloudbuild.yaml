@@ -1,20 +1,27 @@
 steps:
-# This step builds the container image.
+# Step 1: Build the Docker Image
 - name: 'gcr.io/cloud-builders/docker'
-  id: Build
-  args:
-  - 'build'
-  - '-t'
-  - 'us-central1-docker.pkg.dev/plucky-alliance-451211-s9/myapps-repository/my-build:prod1'
-  - '.'
+  args: [ 'build', '-t', 'us-central1-docker.pkg.dev/plucky-alliance-451211-s9/myapps-repository/my-build:prod1', '.' ]
 
-# This step pushes the image to Artifact Registry
-# The PROJECT_ID and SHORT_SHA variables are automatically
-# replaced by Cloud Build.
+# Step 2: Push the image to the Artifact Registry
 - name: 'gcr.io/cloud-builders/docker'
-  id: Push
+  args: [ 'push', 'us-central1-docker.pkg.dev/plucky-alliance-451211-s9/myapps-repository/my-build:prod1' ]
+
+
+# Step 3: Deployment to Cloud Run after image is pushed
+- name: 'gcr.io/cloud-builders/gcloud'
   args:
-  - 'push'
+  - 'run'
+  - 'deploy'
+  - 'my-service'  # Replace with your service name
+  - '--image'
   - 'us-central1-docker.pkg.dev/plucky-alliance-451211-s9/myapps-repository/my-build:prod1'
+  - '--region'
+  - 'us-central1'  # You can change this if you want to deploy to a different region
+  - '--platform'
+  - 'managed'
+  # Optional: if you want to allow unauthenticated access
+  - '--allow-unauthenticated'
+
 options:
   logging: CLOUD_LOGGING_ONLY
